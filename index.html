@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>College Admissions Calculator</title>
+    <style>
+        .green {
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+
+<div style="border: 2px solid #999; padding: 20px; max-width: 600px; margin: 30px auto;">
+    <h2>Colledge Admissions Calculator</h2>
+
+    <table>
+        <tr>
+            <td><label for="age">age:</label></td>
+            <td><input type="text" id="age" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+        </tr>
+    </table>
+
+    <br>
+
+    <fieldset>
+        <legend>Select from the below options:</legend>
+        <label>
+            <input type="radio" id="optionPsycho" name="admissionOption" onclick="handleOptionChange()">
+            Psychometric and Bagrut
+        </label>
+        &nbsp;&nbsp;
+        <label>
+            <input type="radio" id="optionMechina" name="admissionOption" onclick="handleOptionChange()">
+            Mechina and Bagrut
+        </label>
+    </fieldset>
+
+    <br>
+
+    <table>
+        <tr>
+            <td><label for="psychometricGrade">Psychometric Grade:</label></td>
+            <td><input type="text" id="psychometricGrade" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+        </tr>
+        <tr>
+            <td><label for="bagrutGrade">Bagrut Grade:</label></td>
+            <td><input type="text" id="bagrutGrade" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+        </tr>
+        <tr>
+            <td><label for="mechinaGrade">Mechina Grade:</label></td>
+            <td><input type="text" id="mechinaGrade" oninput="this.value=this.value.replace(/[^0-9]/g,'')"></td>
+        </tr>
+    </table>
+
+    <br>
+    <button onclick="validate()">validate</button>
+
+    <div id="result" style="padding: 5px; margin-top: 8px;"></div>
+</div>
+
+<script>
+    function handleOptionChange() {
+        var psychometric = document.getElementById("psychometricGrade");
+        var mechina = document.getElementById("mechinaGrade");
+
+        if (document.getElementById("optionPsycho").checked) {
+            mechina.disabled = true;
+            mechina.style.backgroundColor = "#d3d3d3";
+            mechina.value = "";
+            psychometric.disabled = false;
+            psychometric.style.backgroundColor = "";
+        } else if (document.getElementById("optionMechina").checked) {
+            psychometric.disabled = true;
+            psychometric.style.backgroundColor = "#d3d3d3";
+            psychometric.value = "";
+            mechina.disabled = false;
+            mechina.style.backgroundColor = "";
+        }
+    }
+
+    function validate() {
+        var bagrut = document.getElementById("bagrutGrade").value.trim();
+        var age = parseInt(document.getElementById("age").value.trim());
+        var resultDiv = document.getElementById("result");
+
+        resultDiv.textContent = "";
+        resultDiv.className = "";
+
+        if (bagrut === "") {
+            alert("You should enter a bagrut grade");
+            return;
+        }
+
+        if (!isNaN(age) && age > 30) {
+            resultDiv.textContent = "You are eligible for admission to any faculty you choose";
+            resultDiv.className = "green";
+        }
+    }
+</script>
+
+</body>
+</html>
